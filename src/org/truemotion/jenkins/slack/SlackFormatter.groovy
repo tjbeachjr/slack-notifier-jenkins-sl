@@ -1,7 +1,7 @@
 package org.truemotion.jenkins.slack
 
 
-String format(String title = '', String message = '', String testSummary = '') {
+String format(String title = '', String message = '', String testSummary = '', String buildParams) {
     def helper = new JenkinsHelper()
 
     def project = helper.getProjectName()
@@ -16,6 +16,7 @@ String format(String title = '', String message = '', String testSummary = '') {
     result = "${result} - #${buildNumber} ${title.trim()} (<${url}|Open>)"
     if (message) result = result + "\nChanges:\n\t ${message.trim()}"
     if (testSummary) result = result + "\n ${testSummary}"
+    if (buildParams) result = result + "\n ${buildParams}"
 
     return result
 }

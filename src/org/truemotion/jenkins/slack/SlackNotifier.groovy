@@ -56,7 +56,7 @@ void notifyResult() {
   String buildParams = null
   if (config.getTestSummary()) {
     JenkinsBuildParameters jenkinsBuildParameters = new JenkinsBuildParameters()
-    buildParams = jenkinsTestsSummary.getBuildParameters()
+    buildParams = jenkinsBuildParameters.getBuildParameters()
   }
 
   def message = formatter.format "${statusMessage} after ${duration}", changes, testSummary, buildParams

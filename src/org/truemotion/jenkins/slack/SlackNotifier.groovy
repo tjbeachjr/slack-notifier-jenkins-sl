@@ -53,7 +53,13 @@ void notifyResult() {
     testSummary = jenkinsTestsSummary.getTestSummary()
   }
 
-  def message = formatter.format "${statusMessage} after ${duration}", changes, testSummary
+  String buildParams = null
+  if (config.getTestSummary()) {
+    JenkinsBuildParameters jenkinsBuildParameters = new JenkinsBuildParameters()
+    buildParams = jenkinsTestsSummary.getBuildParameters()
+  }
+
+  def message = formatter.format "${statusMessage} after ${duration}", changes, testSummary, buildParams
 
   sender.send message, color
 }
@@ -62,5 +68,6 @@ void notifyResultFull() {
   env.TEST_SUMMARY = true
   env.CHANGE_LIST = true
   env.NOTIFY_SUCCESS = true
+  env.BUILD_PARAMETERS = true
   notifyResult()
 }

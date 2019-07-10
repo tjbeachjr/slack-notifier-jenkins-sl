@@ -15,3 +15,8 @@ Boolean getTestSummary() {
   if(env.TEST_SUMMARY) return new Boolean(env.TEST_SUMMARY)
   return false
 }
+
+Boolean showBuildParameters() {
+  if(env.BUILD_PARAMETERS) return new Boolean(env.BUILD_PARAMETERS)
+  return false
+}

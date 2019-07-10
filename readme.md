@@ -27,8 +27,9 @@ This library receives all its configuration through environment variables
 * SLACK_DOMAIN          Slack team domain. Slack channel for sending the notification. If not set, the global jenkins configuration will be used.
 * SLACK_CREDENTIALS:    Identifier of the credentials entry stored in the Jenkins's credential store. If not set, the global jenkins configuration will be used.
 * CHANGE_LIST:          Includes the change list. False by default.
-* TEST_SUMMARY:         Includes the test summary. False by default 
-* NOTIFY_SUCCESS:       If true, all succeeded builds will be notified.
+* TEST_SUMMARY:         Includes the test summary. False by default.
+* NOTIFY_SUCCESS:       If true, all succeeded builds will be notified.  False by default.
+* BUILD_PARAMETERS:     Include the build parameters. False by default.
 ```
 
 ## API Definition
@@ -55,6 +56,7 @@ try {
  env.SLACK_CREDENTIALS = 'jenkins-slack-credentials-id'
  env.CHANGE_LIST = 'true'
  env.TEST_SUMMARY = 'true'
+ env.BUILD_PARAMETERS = 'true'
 
  notifier.notifyStart()
 
@@ -79,6 +81,9 @@ try {
 
 #### Declarative pipeline
 ```
+@Library('slack-notifier-jenkins-sl')_
+import org.truemotion.jenkins.slack.SlackNotifier
+
 pipeline {
 
  environment {
@@ -87,6 +92,7 @@ pipeline {
   SLACK_CREDENTIALS = 'jenkins-slack-credentials-id'
   CHANGE_LIST = true
   TEST_SUMMARY = true
+  BUILD_PARAMETERS = true
  }
 
  post {
